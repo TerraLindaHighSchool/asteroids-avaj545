@@ -25,6 +25,7 @@ public class Space extends World
         addObject(rocket, getWidth()/2 + 100, getHeight()/2);
         
         addAsteroids(startAsteroids);
+        paintStars(555);
         
         scoreCounter = new Counter("Score: ");
         addObject(scoreCounter, 60, 480);
@@ -33,6 +34,27 @@ public class Space extends World
         ProtonWave.initializeImages();
     }
     
+    private void paintStars(int count)
+    {
+        GreenfootImage background = getBackground();
+        for(int i = 0; i < count; i++)
+        {
+            int x = Greenfoot.getRandomNumber(getWidth());
+            int y = Greenfoot.getRandomNumber(getHeight());
+            int deltaRed = Greenfoot.getRandomNumber(80) - 30;
+            int deltaGreen = Greenfoot.getRandomNumber(80) - 45;
+            
+            int starBrightness = Greenfoot.getRandomNumber(120) + 80;
+            
+            Color StarColor = new Color(starBrightness + deltaRed, starBrightness + deltaGreen, starBrightness + deltaBlue);
+            
+            int starSize = Greenfoot.getRandomNumber(3) + 1;
+            
+            background.setColor(StarColor);
+            background.fillOval(x, y, starSize, starSize);
+        }
+
+    }
     /**
      * Add a given number of asteroids to our world. Asteroids are only added into
      * the left half of the world.
