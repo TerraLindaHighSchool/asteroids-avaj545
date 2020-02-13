@@ -14,16 +14,19 @@ public class Rocket extends SmoothMover
     private static final int gunReloadTime = 5;         // The minimum delay between firing the gun.
 
     private int reloadDelayCount;               // How long ago we fired the gun the last time.
+    private Vector acceleration;
     
     private GreenfootImage rocket = new GreenfootImage("rocket.png");    
     private GreenfootImage rocketWithThrust = new GreenfootImage("rocketWithThrust.png");
-
     /**
      * Initialise this rocket.
      */
     public Rocket()
     {
-        reloadDelayCount = 5;
+        reloadDelayCount = 0;
+        addToVelocity(new Vector(150,.5));
+        acceleration = (new Vector(0, 0.3));
+        increaseSpeed(new Vector(13, 0.3));
     }
 
     /**
@@ -32,18 +35,43 @@ public class Rocket extends SmoothMover
      */
     public void act()
     {
+        move();
         checkKeys();
         reloadDelayCount++;
     }
     
-    /**
-     * Check whether there are any key pressed and react to them.
+      /**
+    * Check whether there are any key pressed and react to them.
      */
-    private void checkKeys() 
+     private void checkKeys() 
     {
+        ignite(Greenfoot.isKeyDown("up"));
+        
         if (Greenfoot.isKeyDown("space")) 
         {
             fire();
+        }
+         if (Greenfoot.isKeyDown("left")) 
+        {
+            turn(-5);
+        }
+         if (Greenfoot.isKeyDown("right")) 
+        {
+            turn(5);
+        }
+    }
+    
+    private void ignite(boolean boosterOn)
+    {
+        if (boosterOn) 
+        {
+            setImage(rocketWithThrust);
+            acceleration.setDirection(getRotation());
+            increaseSpeed(acceleration);
+        }
+        else
+        {
+            setImage(rocket);
         }
     }
     
