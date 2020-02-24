@@ -38,6 +38,7 @@ public class Rocket extends SmoothMover
         move();
         checkKeys();
         reloadDelayCount++;
+        checkCollision();
     }
     
       /**
@@ -51,7 +52,7 @@ public class Rocket extends SmoothMover
         {
             fire();
         }
-         if (Greenfoot.isKeyDown("left")) 
+        if (Greenfoot.isKeyDown("left")) 
         {
             turn(-5);
         }
@@ -87,6 +88,16 @@ public class Rocket extends SmoothMover
             bullet.move ();
             reloadDelayCount = 0;
         }
+    }
+     
+     private void checkCollision()
+    {
+    if(getOneIntersectingObject(Asteroid.class) != null)
+    { 
+      World world = getWorld();  
+      world.addObject(new Explosion(), getX(), getY());
+      world.removeObject(this);
+    }
     }
     
 }
