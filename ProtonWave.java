@@ -40,7 +40,7 @@ public class ProtonWave extends Actor
             int i = 0;
             while (i < NUMBER_IMAGES) 
             {
-                int size = (i+1) * ( baseImage.getWidth() / NUMBER_IMAGES );
+                int size = (10+1) * ( baseImage.getWidth() / NUMBER_IMAGES );
                 images[i] = new GreenfootImage(baseImage);
                 images[i].scale(size, size);
                 i++;
@@ -53,6 +53,7 @@ public class ProtonWave extends Actor
      */
     public void act()
     { 
+    
     }
     
 }
