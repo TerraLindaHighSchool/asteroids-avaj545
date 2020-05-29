@@ -56,7 +56,7 @@ public class Rocket extends SmoothMover
         {
             turn(-5);
         }
-         if (Greenfoot.isKeyDown("right")) 
+        if (Greenfoot.isKeyDown("right")) 
         {
             turn(5);
         }

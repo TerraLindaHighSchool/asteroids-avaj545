@@ -60,4 +60,14 @@ public class Bullet extends SmoothMover
             asteroid.hit(damage);
         }
     }
+    
+    private void checkWizardHit()
+    {
+        Wizard wizard = (Wizard) getOneIntersectingObject(Wizard.class);
+        if (wizard != null)
+        {
+            ((Space) getWorld()).updateScore(pointsToAdd);
+            getWorld().removeObject(this);
+        }
+    }
 }
