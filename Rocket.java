@@ -100,5 +100,4 @@ public class Rocket extends SmoothMover
         space.gameOver();
        }
     }
-    
 }

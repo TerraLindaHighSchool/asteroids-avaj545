@@ -45,5 +45,13 @@ public class Wizard extends SmoothMover
         }
     }
     
-   
+    private void find()
+    {
+       if(getObjectsInRange(100, Rocket.class).size() > 0)
+       {
+                // turn towards rocket and shoot
+                turnTowards(int),(getExactX), (int),(getExactY);
+                //fire(); 
+       }
+    }
 }

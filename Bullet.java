@@ -45,6 +45,14 @@ public class Bullet extends SmoothMover
             move();
             checkAsteroidHit();
         }
+         if(life <= 0) {
+            getWorld().removeObject(this);
+        } 
+        else {
+            life--;
+            move();
+            checkWizardHit();
+        }
     }
     
     /**
