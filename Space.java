@@ -4,13 +4,15 @@ import greenfoot.*;
  * Space. Something for rockets to fly in.
  * 
  * @author Ava Jorgensen
+ * 06/05/20
  * @version 1.1
  */
 public class Space extends World
 {
     private Counter scoreCounter;
-    private int startAsteroids = 2;
+    private int startAsteroids = 1;
     private static int pointsToAdd = 5;
+
     /**
      * Create the space and all objects within it.
      */
@@ -34,15 +36,9 @@ public class Space extends World
         ProtonWave.initializeImages();
         prepare();
         
-        
+        Wizard wizard = new Wizard();
     }
 
-    public void setBackground()
-    {
-        new GreenfootImage("screenPage1"); 
-         
-    }
-    
     private void paintStars(int count)
     {
         GreenfootImage background = getBackground();
@@ -80,6 +76,19 @@ public class Space extends World
         }
     }
 
+    private void addWizards(int count) 
+    {
+    if (count < 10) 
+    {
+        for(int i = 0; i < count; i++) 
+        {
+            int x = Greenfoot.getRandomNumber(getWidth()/2);
+            int y = Greenfoot.getRandomNumber(getHeight()/2);
+            addObject(new Asteroid(), x, y);
+        }
+    }
+    }
+    
     public void updateScore(int addToScore)
     {
         scoreCounter.add(addToScore);
@@ -104,5 +113,6 @@ public class Space extends World
     {
         Wizard wizard = new Wizard();
         addObject(wizard,163,391);
+    
     }
 }

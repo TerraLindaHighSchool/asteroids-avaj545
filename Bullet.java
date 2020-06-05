@@ -9,7 +9,7 @@ import greenfoot.*;
 public class Bullet extends SmoothMover
 {
     /** The damage this bullet will deal */
-    private static final int damage = 16;
+    private static final int damage = 1;
     
     /** A bullet looses one life each act, and will disappear when life = 0 */
     private int life = 30;
@@ -41,16 +41,15 @@ public class Bullet extends SmoothMover
             getWorld().removeObject(this);
         } 
         else {
-            life--;
+            
             move();
             checkAsteroidHit();
         }
-         if(life <= 0) {
+        if(life <= 0) {
             getWorld().removeObject(this);
         } 
         else {
             life--;
-            move();
             checkWizardHit();
         }
     }
@@ -72,7 +71,7 @@ public class Bullet extends SmoothMover
     private void checkWizardHit()
     {
         Wizard wizard = (Wizard) getOneIntersectingObject(Wizard.class);
-        if (wizard != null)
+         if (wizard != null)
         {
             ((Space) getWorld()).updateScore(pointsToAdd);
             getWorld().removeObject(this);

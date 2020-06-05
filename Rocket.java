@@ -11,8 +11,9 @@ import greenfoot.*;
  */
 public class Rocket extends SmoothMover
 {
-    private static final int gunReloadTime = 5;         // The minimum delay between firing the gun.
-
+    private static final int gunReloadTime = 5; // The minimum delay between firing the gun.
+    private int life;
+    public int score; 
     private int reloadDelayCount;               // How long ago we fired the gun the last time.
     private Vector acceleration;
     
@@ -27,6 +28,7 @@ public class Rocket extends SmoothMover
         addToVelocity(new Vector(150,.5));
         acceleration = (new Vector(0, 0.3));
         increaseSpeed(new Vector(13, 0.3));
+        life = 10; 
     }
 
     /**
@@ -38,7 +40,7 @@ public class Rocket extends SmoothMover
         move();
         checkKeys();
         reloadDelayCount++;
-        checkCollision();
+        checkCollision(); 
     }
     
       /**
@@ -90,14 +92,33 @@ public class Rocket extends SmoothMover
         }
     }
      
-     private void checkCollision()
+    public int getX()
     {
-     if(getOneIntersectingObject(Asteroid.class) != null)
+     return super.getX();
+    }
+
+    public int getY()
+    {
+     return super.getY();
+    }
+    
+    private void checkCollision()
+    {
+        if(getOneIntersectingObject(Asteroid.class) != null)
        { 
         Space space = (Space) getWorld();
         space.addObject(new Explosion(), getX(), getY());
-        space.removeObject(this);
+        //space.removeObject(this);
+        space.gameOver();
+       }
+       if(getOneIntersectingObject(Bullet.class) != null)
+       { 
+        Space space = (Space) getWorld();
+        //score--; 
+        Greenfoot.playSound("wizardHitRocket.wav"); 
+        //space.removeObject(this);
         space.gameOver();
        }
     }
+
 }

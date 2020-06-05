@@ -9,11 +9,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Wizard extends SmoothMover
 {
     private int size = 16; 
-    
+    private int life = 10;
     private int stability;
     
     private int reloadDelayCount;
-    private static final int gunReloadTime = 5;
+    private static final int gunReloadTime = 30;
     
     /**
      * Act - do whatever the Wizard wants to do. This method is called whenever
@@ -21,7 +21,9 @@ public class Wizard extends SmoothMover
      */
     public void act() 
     {
-        move();// Add your action code here.
+        reloadDelayCount++;
+        move();
+        find();// Add your action code here.
     }  
     
     public Wizard()
@@ -47,11 +49,11 @@ public class Wizard extends SmoothMover
     
     private void find()
     {
-       if(getObjectsInRange(100, Rocket.class).size() > 0)
+       if(getObjectsInRange(200, Rocket.class).size() > 0)
        {
-                // turn towards rocket and shoot
-                turnTowards(int),(getExactX), (int),(getExactY);
-                //fire(); 
+                  turnTowards(getObjectsInRange(200, Rocket.class).get(0).getX(),
+                  getObjectsInRange(200, Rocket.class).get(0).getY());
+                  fire();
        }
     }
 }
