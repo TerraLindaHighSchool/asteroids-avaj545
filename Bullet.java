@@ -51,14 +51,14 @@ public class Bullet extends SmoothMover
                 if(this.isTouching(Rocket.class))
                 {
                     score--; 
-                    // removeObject(Rocket.class);
+                    //I am not sure why the rocket disappears, but I have the assumption it is because of this method block. 
+                    //removeObject(Rocket.class);
                     //getWorld();
                 }
             }
             if(creator.equals("Rocket"))
             {
-                checkWizardHit();
-                checkAsteroidHit();
+                checkHit();
             }
             life--;
         }  
@@ -67,19 +67,17 @@ public class Bullet extends SmoothMover
     /**
      * Check whether we have hit an asteroid.
      */
-    private void checkAsteroidHit()
+    private void checkHit()
     {
         Asteroid asteroid = (Asteroid) getOneIntersectingObject(Asteroid.class);
+        Wizard wizard = (Wizard) getOneIntersectingObject(Wizard.class);
         if (asteroid != null)
         {
            ((Space) getWorld()).updateScore(pointsToAdd);
-            getWorld().removeObject(this);
+           getWorld().removeObject(this);
+           asteroid.hit(damage);
+           return;
         }
-    }
-    
-    private void checkWizardHit()
-    {
-        Wizard wizard = (Wizard) getOneIntersectingObject(Wizard.class);
         if (wizard != null)
         {
             ((Space)getWorld()).updateScore(pointsToAdd);
