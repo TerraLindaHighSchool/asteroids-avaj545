@@ -119,14 +119,14 @@ public class Rocket extends SmoothMover
        if(getOneIntersectingObject(Asteroid.class) != null)
        { 
         space.addObject(new Explosion(), getX(), getY());
-        //space.removeObject(this);
+        space.removeObject(this);
         space.gameOver();
        }
        
        if(getOneIntersectingObject(Bullet.class) != null)
        { 
-        //score--;
-        //space.removeObject(this);
+        score--;
+        space.removeObject(this);
         life--;
        }
     }

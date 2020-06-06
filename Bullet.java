@@ -14,7 +14,7 @@ public class Bullet extends SmoothMover
     /** A bullet looses one life each act, and will disappear when life = 0 */
     private int life = 25;
     private String creator;
-    
+    public int score;
     private static final int pointsToAdd = 5;
     /**
      * Default constructor for testing.
@@ -41,14 +41,19 @@ public class Bullet extends SmoothMover
     public void act()
     {
         if(life <= 0) {
-            getWorld().removeObject(this);
+            //getWorld().removeObject(this);
         } 
         else {
             move();
             if(creator. equals("Wizard"))
             {
                 Space space = (Space) getWorld();
-                //what happens if wizard's bullet hits rocket
+                if(this.isTouching(Rocket.class))
+                {
+                    score--; 
+                    // removeObject(Rocket.class);
+                    //getWorld();
+                }
             }
             if(creator.equals("Rocket"))
             {
@@ -67,7 +72,7 @@ public class Bullet extends SmoothMover
         Asteroid asteroid = (Asteroid) getOneIntersectingObject(Asteroid.class);
         if (asteroid != null)
         {
-            ((Space) getWorld()).updateScore(pointsToAdd);
+           ((Space) getWorld()).updateScore(pointsToAdd);
             getWorld().removeObject(this);
         }
     }

@@ -12,7 +12,7 @@ public class Space extends World
     private Counter scoreCounter;
     private int startAsteroids = 1;
     private static int pointsToAdd = 5;
-
+    public int score; 
     /**
      * Create the space and all objects within it.
      */
