@@ -40,7 +40,7 @@ public class Wizard extends SmoothMover
     {
         if (reloadDelayCount >= gunReloadTime) 
         {
-            Bullet bullet = new Bullet (getVelocity(), getRotation());
+            Bullet bullet = new Bullet (getVelocity(), getRotation(), "Wizard");
             getWorld().addObject (bullet, getX(), getY());
             bullet.move ();
             reloadDelayCount = 0;

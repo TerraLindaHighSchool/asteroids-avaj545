@@ -16,7 +16,7 @@ public class Rules extends World
     public Rules()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(350,300,1); 
+        super(600,500,1); 
     }
     
     public void act()

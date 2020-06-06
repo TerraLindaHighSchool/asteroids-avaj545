@@ -28,7 +28,7 @@ public class Rocket extends SmoothMover
         addToVelocity(new Vector(150,.5));
         acceleration = (new Vector(0, 0.3));
         increaseSpeed(new Vector(13, 0.3));
-        life = 10; 
+        life = 20; 
     }
 
     /**
@@ -41,6 +41,7 @@ public class Rocket extends SmoothMover
         checkKeys();
         reloadDelayCount++;
         checkCollision(); 
+        checkLife();
     }
     
       /**
@@ -61,6 +62,16 @@ public class Rocket extends SmoothMover
         if (Greenfoot.isKeyDown("right")) 
         {
             turn(5);
+        }
+    }
+    
+    private void checkLife()
+    {
+        Space space = (Space) getWorld();
+        if(life == 0)
+        {
+            Greenfoot.playSound("EnergyGun.wav");
+            space.gameOver();
         }
     }
     
@@ -85,7 +96,7 @@ public class Rocket extends SmoothMover
     {
         if (reloadDelayCount >= gunReloadTime) 
         {
-            Bullet bullet = new Bullet (getVelocity(), getRotation());
+            Bullet bullet = new Bullet (getVelocity(), getRotation(),"Rocket" );
             getWorld().addObject (bullet, getX(), getY());
             bullet.move ();
             reloadDelayCount = 0;
@@ -104,21 +115,19 @@ public class Rocket extends SmoothMover
     
     private void checkCollision()
     {
-        if(getOneIntersectingObject(Asteroid.class) != null)
+       Space space = (Space) getWorld();
+       if(getOneIntersectingObject(Asteroid.class) != null)
        { 
-        Space space = (Space) getWorld();
         space.addObject(new Explosion(), getX(), getY());
         //space.removeObject(this);
         space.gameOver();
        }
+       
        if(getOneIntersectingObject(Bullet.class) != null)
        { 
-        Space space = (Space) getWorld();
-        //score--; 
-        Greenfoot.playSound("wizardHitRocket.wav"); 
+        //score--;
         //space.removeObject(this);
-        space.gameOver();
+        life--;
        }
     }
-
 }

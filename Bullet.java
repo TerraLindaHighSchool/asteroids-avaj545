@@ -12,7 +12,9 @@ public class Bullet extends SmoothMover
     private static final int damage = 1;
     
     /** A bullet looses one life each act, and will disappear when life = 0 */
-    private int life = 30;
+    private int life = 25;
+    private String creator;
+    
     private static final int pointsToAdd = 5;
     /**
      * Default constructor for testing.
@@ -24,12 +26,13 @@ public class Bullet extends SmoothMover
     /**
      * Create a bullet with given speed and direction of movement.
      */
-    public Bullet(Vector speed, int rotation)
+    public Bullet(Vector speed, int rotation, String creator)
     {
         super(speed);
         setRotation(rotation);
         addToVelocity(new Vector(rotation, 15));
         Greenfoot.playSound("EnergyGun.wav");
+        this.creator = creator; 
     }
     
     /**
@@ -41,17 +44,19 @@ public class Bullet extends SmoothMover
             getWorld().removeObject(this);
         } 
         else {
-            
             move();
-            checkAsteroidHit();
-        }
-        if(life <= 0) {
-            getWorld().removeObject(this);
-        } 
-        else {
+            if(creator. equals("Wizard"))
+            {
+                Space space = (Space) getWorld();
+                //what happens if wizard's bullet hits rocket
+            }
+            if(creator.equals("Rocket"))
+            {
+                checkWizardHit();
+                checkAsteroidHit();
+            }
             life--;
-            checkWizardHit();
-        }
+        }  
     }
     
     /**
@@ -64,17 +69,16 @@ public class Bullet extends SmoothMover
         {
             ((Space) getWorld()).updateScore(pointsToAdd);
             getWorld().removeObject(this);
-            asteroid.hit(damage);
         }
     }
     
     private void checkWizardHit()
     {
         Wizard wizard = (Wizard) getOneIntersectingObject(Wizard.class);
-         if (wizard != null)
+        if (wizard != null)
         {
-            ((Space) getWorld()).updateScore(pointsToAdd);
+            ((Space)getWorld()).updateScore(pointsToAdd);
             getWorld().removeObject(this);
         }
     }
-}
+} 
